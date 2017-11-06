@@ -10,9 +10,16 @@ Implementations of some common clustering algorithms
 ![meanshift.png](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/kmeans.png)
 
 
+
+
+
 **2.dbscan**
 `data: Aggregation.txt`
-![meanshift.png](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/dbscan.png)
+![dbscan.png](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/dbscan.png)
+
+
+
+
 
 **3.meanshift**
 ![meanshift](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/meanshift.png)
