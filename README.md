@@ -5,21 +5,32 @@ Implementations of some common clustering algorithms
 
 **1.K-means**
 
-`data: Aggregation.txt`
-`k = 5`
-![meanshift.png](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/kmeans.png)
+`data: mix.txt`
+`k = 10`
+
+![meanshift](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/mix_k10.png)
 
 
 
 
 
 **2.dbscan**
-`data: Aggregation.txt`
-![dbscan.png](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/dbscan.png)
+
+`data: mix.txt`
+`eps = 2`
+`minPts = 10`
+
+![dbscan](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/mix_e2m10.png)
 
 
 
 
 
 **3.meanshift**
-![meanshift](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/meanshift.png)
+
+`data: mix.txt`
+`r = 3`
+`theta = 0.5`
+
+
+![meanshift](https://github.com/mzx5464/Clustering-Algorithm/blob/master/img/mix_r3t0.5.png)

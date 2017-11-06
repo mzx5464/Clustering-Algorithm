@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class kmeans():
-    SEED_NUM = 5
-    maxn = 1000
+    SEED_NUM = 10
+    maxn = 10000
     points = np.zeros([maxn, 3],dtype=np.float32)
     seeds = np.zeros([SEED_NUM, 3],dtype=np.float32)
     ori = np.zeros(maxn,dtype=np.float32)
@@ -17,7 +17,7 @@ class kmeans():
         self.scatter()
 
     def load_data(self):
-        file_in = open(self.prefix % 'Aggregation.txt')
+        file_in = open(self.prefix % 'mix.txt')
         c = 0
         for row in file_in:
             row = row.strip('\n')
@@ -87,7 +87,7 @@ class kmeans():
         return math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))
 
     def output(self):
-        file_out = open(self.prefix % 'Aggregation_res.txt',"w")
+        file_out = open(self.prefix % 'mix_k10.txt',"w")
         for i in range(self.points_num):
             file_out.write("{},{},{}\n".format(self.points[i,0],self.points[i,1],self.points[i][2]))
         file_out.close()

@@ -4,15 +4,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class meanshift():
-    maxn = 1000
-    r = 2
+    maxn = 10000
+    r = 3
+    theta = 0.5
     points = np.zeros([maxn, 3], dtype=np.float32)
-    ori = np.zeros([maxn, 3],dtype=np.float32)
+    ori = np.zeros([maxn, 3], dtype=np.float32)
     points_num = 0
-    prefix = "D:\OneDrive\Document\Learning\Crouse\Junior\Pattern Recognition\Clustering\synthetic_data\\%s"
+    prefix = "E:\OneDrive\Document\Learning\Crouse\Junior\Pattern Recognition\Clustering\synthetic_data\\%s"
 
     def load_data(self):
-        file_in = open(self.prefix % 'Aggregation.txt')
+        file_in = open(self.prefix % 'mix.txt')
         c = 0
         for row in file_in:
             row = row.strip('\n')
@@ -25,11 +26,15 @@ class meanshift():
         print("There are ", c, " points\n")
         file_in.close()
 
+    def weightGaussian(self, d):
+        return 1
+
+
     def distance(self, x1, y1, x2, y2):
         return math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))
 
     def output(self):
-        file_out = open(self.prefix % 'Aggregation_res.txt',"w")
+        file_out = open(self.prefix % 'mix_r3t0.5.txt',"w")
         for i in range(self.points_num):
             file_out.write("{},{},{}\n".format(self.ori[i,0],self.ori[i,1],self.points[i][2]))
         file_out.close()
@@ -37,7 +42,7 @@ class meanshift():
     def shift(self):
         t = 0
         while True:
-            maxmov = 0
+            maxmove = 0
             for i in range(self.points_num):
                 x = self.points[i][0]
                 y = self.points[i][1]
@@ -46,18 +51,21 @@ class meanshift():
                 for j in range(self.points_num):
                     dis = self.distance(x, y, self.points[j][0], self.points[j][1])
                     if dis <= self.r:
-                        sumx += (self.points[j][0] - x)
-                        sumy += (self.points[j][1] - y)
+                        w = self.weightGaussian(dis)
+                        sumx += (self.points[j][0] - x)*w
+                        sumy += (self.points[j][1] - y)*w
                         self.points[j][2] = c
                         counter += 1
-                self.points[i][0] += sumx * 0.1
-                self.points[i][1] += sumy * 0.1
-                delta = abs(sumx) + abs(sumy)
-                if(maxmov < delta):
-                    maxmov = delta
+                sumx /= counter
+                sumy /= counter
+                self.points[i][0] += sumx
+                self.points[i][1] += sumy
+                tmp = abs(sumx) + abs(sumy)
+                if(maxmove < tmp):
+                    maxmove = tmp
             t += 1
-            print(t,"th loop")
-            if (maxmov < 100):
+            print(t,"th loop, maxmove =", maxmove)
+            if (maxmove < self.theta):
                 break
 
     def clear(self):
@@ -70,14 +78,10 @@ if __name__ == "__main__":
     ms.shift()
     ms.output()
 
-    # a = np.concatenate((ms.ori[:,0:2], ms.points[:,2:3]), axis = 1)
-    # for i in range(ms.points_num):
-    #     print(a[i])
-
     fig = plt.figure(figsize=(10,5))
     img0 = fig.add_subplot(121)
     plt.scatter(ms.ori[:,0], ms.ori[:,1], c = ms.ori[:,2])
-    img0.set_title("Ori")
+    img0.set_title("ORI")
     img1 = fig.add_subplot(122)
     plt.scatter(ms.ori[:,0], ms.ori[:,1], c = ms.points[:,2])
     img1.set_title("meanshift")
