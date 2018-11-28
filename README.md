@@ -1,5 +1,5 @@
 ## Clustering-Algorithm
-Implementations of some  clustering algorithms
+Implementations of some preliminary clustering algorithms
 
 ----
 
